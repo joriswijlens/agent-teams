@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const tasks = [
+const initialTasks = [
   { id: 1, title: 'Presentatie maken over agent teams', status: 'in progress' },
   { id: 2, title: 'Demo repo opzetten op GitHub', status: 'done' },
   { id: 3, title: 'Live demo voorbereiden', status: 'open' },
 ];
 
+const statuses = ['open', 'in progress', 'done'];
+
+const statusColor = (status) =>
+  status === 'done' ? 'green' : status === 'in progress' ? 'orange' : '#888';
+
 export default function App() {
+  const [tasks, setTasks] = useState(initialTasks);
+
+  const changeStatus = (id, newStatus) => {
+    setTasks(tasks.map(t => t.id === id ? { ...t, status: newStatus } : t));
+  };
+
   return (
     <div style={{ maxWidth: 600, margin: '2rem auto', fontFamily: 'sans-serif' }}>
       <h1>Taken</h1>
@@ -19,14 +30,26 @@ export default function App() {
             borderRadius: 4,
             display: 'flex',
             justifyContent: 'space-between',
+            alignItems: 'center',
           }}>
             <span>{task.title}</span>
-            <span style={{
-              color: task.status === 'done' ? 'green' : task.status === 'in progress' ? 'orange' : '#888',
-              fontWeight: 'bold',
-            }}>
-              {task.status}
-            </span>
+            <select
+              value={task.status}
+              onChange={e => changeStatus(task.id, e.target.value)}
+              style={{
+                color: statusColor(task.status),
+                fontWeight: 'bold',
+                border: '1px solid #ccc',
+                borderRadius: 4,
+                padding: '0.25rem 0.5rem',
+                cursor: 'pointer',
+                background: '#fff',
+              }}
+            >
+              {statuses.map(s => (
+                <option key={s} value={s}>{s}</option>
+              ))}
+            </select>
           </li>
         ))}
       </ul>
