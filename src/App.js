@@ -1,15 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const tasks = [
+const initialTasks = [
   { id: 1, title: 'Presentatie maken over agent teams', status: 'in progress' },
   { id: 2, title: 'Demo repo opzetten op GitHub', status: 'done' },
   { id: 3, title: 'Live demo voorbereiden', status: 'open' },
 ];
 
 export default function App() {
+  const [tasks, setTasks] = useState(initialTasks);
+  const [newTitle, setNewTitle] = useState('');
+
+  const handleAdd = () => {
+    const title = newTitle.trim();
+    if (!title) return;
+    setTasks([...tasks, {
+      id: Math.max(0, ...tasks.map(t => t.id)) + 1,
+      title,
+      status: 'open',
+    }]);
+    setNewTitle('');
+  };
+
   return (
     <div style={{ maxWidth: 600, margin: '2rem auto', fontFamily: 'sans-serif' }}>
       <h1>Taken</h1>
+      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+        <input
+          type="text"
+          value={newTitle}
+          onChange={e => setNewTitle(e.target.value)}
+          onKeyDown={e => e.key === 'Enter' && handleAdd()}
+          placeholder="Nieuwe taak..."
+          style={{
+            flex: 1,
+            padding: '0.5rem',
+            fontSize: '1rem',
+            borderRadius: 4,
+            border: '1px solid #ccc',
+          }}
+        />
+        <button
+          onClick={handleAdd}
+          disabled={!newTitle.trim()}
+          style={{
+            padding: '0.5rem 1rem',
+            fontSize: '1rem',
+            borderRadius: 4,
+            border: 'none',
+            background: newTitle.trim() ? '#007bff' : '#ccc',
+            color: 'white',
+            cursor: newTitle.trim() ? 'pointer' : 'not-allowed',
+          }}
+        >
+          Toevoegen
+        </button>
+      </div>
       <ul style={{ listStyle: 'none', padding: 0 }}>
         {tasks.map(task => (
           <li key={task.id} style={{
