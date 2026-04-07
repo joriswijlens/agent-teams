@@ -6,6 +6,12 @@ const initialTasks = [
   { id: 3, title: 'Live demo voorbereiden', status: 'open' },
 ];
 
+const statusColors = {
+  open: '#888',
+  'in progress': 'orange',
+  done: 'green',
+};
+
 export default function App() {
   const [tasks, setTasks] = useState(initialTasks);
   const [newTitle, setNewTitle] = useState('');
@@ -19,6 +25,12 @@ export default function App() {
       status: 'open',
     }]);
     setNewTitle('');
+  };
+
+  const handleStatusChange = (id, newStatus) => {
+    setTasks(tasks.map(task =>
+      task.id === id ? { ...task, status: newStatus } : task
+    ));
   };
 
   return (
@@ -64,14 +76,26 @@ export default function App() {
             borderRadius: 4,
             display: 'flex',
             justifyContent: 'space-between',
+            alignItems: 'center',
           }}>
             <span>{task.title}</span>
-            <span style={{
-              color: task.status === 'done' ? 'green' : task.status === 'in progress' ? 'orange' : '#888',
-              fontWeight: 'bold',
-            }}>
-              {task.status}
-            </span>
+            <select
+              value={task.status}
+              onChange={e => handleStatusChange(task.id, e.target.value)}
+              style={{
+                color: statusColors[task.status],
+                fontWeight: 'bold',
+                border: '1px solid #ccc',
+                borderRadius: 4,
+                padding: '0.25rem 0.5rem',
+                cursor: 'pointer',
+                background: 'white',
+              }}
+            >
+              <option value="open">open</option>
+              <option value="in progress">in progress</option>
+              <option value="done">done</option>
+            </select>
           </li>
         ))}
       </ul>
