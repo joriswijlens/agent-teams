@@ -81,6 +81,8 @@ Wat maakt Claude Code anders dan werken met Copilot in de IDE?
 
 Naarmate ik langer met Claude Code werk, begint mijn rol steeds meer te lijken op die van een team leider.
 
+SDLC -> CDLC
+
 ---
 
 ## Wat zijn Agent Teams?
@@ -91,8 +93,6 @@ Meerdere Claude Code sessies die samenwerken, aangestuurd door een **team lead**
 - **Teammates** — aparte Claude Code instanties, elk met eigen context window
 - **Gedeelde takenlijst** — teammates claimen en voltooien taken zelfstandig
 - **Direct messaging** — teammates praten met elkaar, niet alleen terug naar de lead
-
-> In tegenstelling tot subagents (die resultaten terugrapporteren), **werken teammates samen**.
 
 ---
 
@@ -110,6 +110,8 @@ Meerdere Claude Code sessies die samenwerken, aangestuurd door een **team lead**
 
 ## TMUX
 
+Agent teams ondersteunt TMUX
+
 tmux is een terminal multiplexer — je splitst één terminal in meerdere vensters (panes) die naast elkaar draaien.
 
 Met tmux krijgt elke teammate een eigen pane — je ziet alle agents tegelijk werken.
@@ -122,9 +124,46 @@ Met tmux krijgt elke teammate een eigen pane — je ziet alle agents tegelijk we
 
 ## Demo
 
-Agents 
-- Analist
-- Developer
-- Tester
+- Agents 
+
+- Skills
+
+- Settings
+
+- Tmux
+
+---
+
+## Security
+
+In dit voorbeeld hebben de agents te veel rechten ...
+
+Als je dit met een productie systeem wil doen kun je de claude sessies het 
+best draaien in een docker container
+
+Met volumes en firewall
+
+--- 
+
+## Voor Bata
+
+- Spec driven development
+- Verbeteren van makkelijk consumeerbare context, file based in repo, docs-as-code
+  - Gherkin scenarios
+  - ADR's
+  - Design documents in md
+  - Mermaid diagrams
+- Makkelijk produceren van context (concise, concise, concise)
+- Skill repository
+- Standaardisatie ...
+
+---
+
+### Nog meer
+
+- Meer en betere context -> agents langer zelfstandig werken 
+- Testen van skills met evals
+- Nog beter leren werken met tmux, nvim ...
+...
 
 
